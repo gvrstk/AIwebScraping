@@ -21,7 +21,7 @@ curdir = os.path.dirname(os.path.abspath(__file__))
 
 def readFile():
 #Create Pandas Object
-  data = pd.read_excel( curdir +"//" + "Resources.xlsx")
+  data = pd.read_excel( curdir +"\\" + "Resources.xlsx")
   return data
 
 def getData(link):
@@ -51,7 +51,7 @@ for ind in xlfile.index :
     print("----------------------------------- Extracted Data -----------------------------------")
     results = extractHTML(r)
     #print(results)
-    filepath = curdir + "//scraping_out//" + topic + "_rawout.txt"
+    filepath = curdir + "\\scraping_out\\" + topic + "_rawout.txt"
     f = open(filepath, "w" , encoding="utf-8")
     f.write(results)
     f.close()
@@ -59,7 +59,7 @@ for ind in xlfile.index :
     sentences = [[i] for i in nlp(results).sents]
     myheaders = ['sentence']
     myvalues = sentences
-    filename = curdir + "//csv_out//" + topic + "_csvout.csv"
+    filename = curdir + "\\csv_out\\" + topic + "_csvout.csv"
     with open(filename, 'w',newline='',encoding="utf-8") as myfile:
        writer = csv.writer(myfile)
        writer.writerow(myheaders)
@@ -69,13 +69,13 @@ for ind in xlfile.index :
     doc = nlp(results)
     triples = list(textacy.extract.subject_verb_object_triples(doc))
     #print(triples)
-
+    #listofverb = ["maintains",]
     nodes = []
     relations = []# iterate over the triples
     for triple in triples:    # extract the Subject and Object from triple"
      #print(str(triple.subject))
-     if str(triple.subject) == "[RBI]" or str(triple.subject) == "[pppReserve, Bank]" or triple.subject == "[ggIt]" :
-        print("in IF")
+     if str(triple.subject) == "[RBI]" and (str(triple.verb) == "[works]" or str(triple.verb) == "[maintains]" or str(triple.verb) == "[manages]" or str(triple.verb) == "[monitors]" or str(triple.verb) == "[controls]" or str(triple.verb) == "[works]" or str(triple.verb) == "[helps]" or str(triple.verb) == "[play]" or str(triple.verb) == "[facilitates]" ):
+        #print("in IF")
         node_subject = "_".join(map(str, triple.subject))
         node_object  = "_".join(map(str, triple.object))    
         nodes.append(node_subject)
@@ -84,9 +84,9 @@ for ind in xlfile.index :
         relation = "_".join(map(str, triple.verb))
         relations.append((node_subject,node_object,{'action':relation}))# remove duplicate nodes
         nodes = list(set(nodes))
-        print(relations)
+        #print(relations)
 
-
+print(relations)
 G = nx.DiGraph()
 G.add_nodes_from(nodes)
 G.add_edges_from(relations)
@@ -96,6 +96,6 @@ edges, weights = zip(*edge_attribute.items())# resize figure
 plt.rcParams["figure.figsize"] = [5, 2]
 plt.rcParams["figure.autolayout"] = True# set figure layout
 pos = nx.circular_layout(G)# draw graph
-nx.draw(G, pos, node_color='b', width=2, with_labels=True)# draw edge attributes
-nx.draw_networkx_edge_labels(G, pos,edge_attribute, label_pos=0.75 )
-plt.show()
+nx.draw(G, pos, node_color='b', width=1, with_labels=True)# draw edge attributes
+nx.draw_networkx_edge_labels(G, pos,edge_attribute, label_pos=0.50 )
+plt.show()    
