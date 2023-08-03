@@ -1,3 +1,3 @@
 # AIwebScraping
 
-[image](https://github.com/gvrstk/AIwebScraping/assets/34891338/92cf4a02-d343-49ea-8c08-0a60c07ea21e)
+![image](https://github.com/gvrstk/AIwebScraping/assets/34891338/1b1280b1-6be0-4de8-ab3c-246498f10896)
