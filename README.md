@@ -1,3 +1,10 @@
 # AIwebScraping
 
-![image](https://github.com/gvrstk/AIwebScraping/assets/34891338/1b1280b1-6be0-4de8-ab3c-246498f10896)
+Logical Flow : 
+
+![Image 1](./images/logical_flow.png)
+
+
+Sample Output : 
+
+![Image 2](./images/knowledge_graph.png)
